@@ -1,0 +1,12 @@
+.containerLoading {
+	display: flex;
+	flex-direction: column;
+	/* height: 200; */
+	align-items: center;
+	justify-content: center;
+}
+
+.textLoading {
+	color: '#e3e4e5';
+	margin: 0,
+}

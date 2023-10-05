@@ -1,0 +1,34 @@
+ .footer {
+ 	width: 100%;
+	background-color: #140F25;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	padding-top: 10px;
+ }
+ 
+ .logo{
+	width: 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+ }
+
+ .footerlogo {
+	width: 40%;
+ }
+
+ .social{
+	width: 30%;
+	display: flex;
+		flex-direction: column;
+ }
+ .social-style{
+	margin-top: 5px;
+	margin-bottom: 10px;
+ }
+ .info {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+ }

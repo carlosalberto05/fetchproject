@@ -1,0 +1,30 @@
+.container-login {
+	margin-left: 5%;
+	margin-top: 5%;
+}
+
+.containerForm {
+	display: flex;
+	flex-direction: column;
+
+}
+
+label {
+	color: black;
+	margin-bottom: 0.5%;
+}
+
+.input-style {
+	width: 50%;
+	border-radius: 50px;
+	border: 0;
+	border: 1px solid #5141EA;
+	padding: 1%;
+	margin-bottom: 2%;
+	outline: none;
+}
+
+.container-button {
+	margin-top: 2%;
+	width: 30%;
+}

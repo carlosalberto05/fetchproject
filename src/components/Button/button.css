@@ -1,0 +1,49 @@
+.buttonLogInSolid {
+	display: 'flex';
+	align-items: 'center';
+	justify-content: center;
+	color: #FFFFFF;
+	border-radius: 50px;
+	min-height: 40px;
+	height: 'auto';
+	width: 100%;
+	font-weight: 'bold';
+	font-size: 16px;
+	background: linear-gradient(#3AE3C3,
+			#4E6CE4,
+			#563FF0);
+	border: none;
+	cursor: pointer;
+}
+
+.buttonLogInSolidSelected {
+	display: 'flex';
+	align-items: 'center';
+	justify-content: center;
+	color: #FFFFFF;
+	border-radius: 50px;
+	min-height: 40px;
+	height: 'auto';
+	width: 100%;
+	font-weight: 'bold';
+	font-size: 16px;
+	background: #563FF0;
+	border: none;
+	cursor: pointer;
+}
+
+.buttonLogInDesabled {
+	display: 'flex';
+	align-items: 'center';
+	justify-content: center;
+	color: #FFFFFF;
+	border-radius: 50px;
+	min-height: 40px;
+	height: 'auto';
+	width: 100%;
+	font-weight: 'bold';
+	font-size: 16px;
+	background: #a5a4a9;
+	border: none;
+	cursor: pointer;
+}
