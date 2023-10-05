@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./button.css";
 interface IButton {
   label: string | React.ReactElement;
   onClick?: () => void;

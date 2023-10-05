@@ -10,8 +10,8 @@ import ModalLoading from "../../components/ModalLoading";
 
 const Login = () => {
   const [check, setCheck] = useState(false);
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<IAlert>({
@@ -22,23 +22,22 @@ const Login = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === "email") {
+    if (name === "userName") {
+      setUserName(value);
+    } else if (name === "email") {
       setEmail(value);
-    } else if (name === "password") {
-      setPassword(value);
     }
   };
 
   const checkFields = () => {
-    return email === "" || password === "" || check === false;
+    return userName === "" || email === "" || check === false;
   };
 
   const isFieldsEmpty = checkFields();
 
   const handleValidate = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[A-Z]).{8,}$/;
-    if (!emailRegex.test(email) || !passwordRegex.test(password)) {
+    if (!emailRegex.test(email)) {
       return false;
     }
     return true;
@@ -58,20 +57,30 @@ const Login = () => {
     }
 
     try {
-      //Llamada a la API de autenticación
-      const url =
-        "https://api.themoviedb.org/3/authentication/guest_session/new";
+      const url = "https://frontend-take-home-service.fetch.com/auth";
+
+      const body = {
+        name: userName,
+        email: email,
+      };
+
       const options = {
-        method: "GET",
+        method: "POST",
         headers: {
-          accept: "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMjg0MDIyMTUxNzJmZWE0Zjk2NTY2YWUwMTlmNmI1ZCIsInN1YiI6IjVkY2FlMmRjNDcwZWFkMDAxNTliNDJlMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gyQUaLyGm3nsagVVqkhs368oxNUNoQjpx4mGUoV_yos",
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify(body),
       };
       const response = await fetch(url, options);
-      const guesId = await response.json();
-      sessionStorage.setItem("guestSessionId", guesId.guest_session_id);
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("Error en la autenticación");
+      }
+
+      const authResponse = await response.json();
+
+      sessionStorage.setItem("fetchAccessToken", authResponse.fetchAccessToken);
       setLoading(false);
       setTimeout(() => {
         navigate("/inicio");
@@ -79,11 +88,17 @@ const Login = () => {
     } catch (error) {
       console.error("Error:", error);
       setLoading(false);
+      setAlert({
+        show: true,
+        message:
+          "Hubo un error en la autenticación. Por favor, inténtalo de nuevo más tarde.",
+        severity: "error",
+      });
     }
 
     const data = {
+      userName: userName,
       email: email,
-      password: password,
     };
     console.log(data);
   };
@@ -102,6 +117,14 @@ const Login = () => {
           <br />
           <form onSubmit={handleOnSubmit}>
             <div className="containerForm">
+              <label>Nombre de usuario</label>
+              <input
+                name="userName"
+                className="input-style"
+                type="text"
+                onChange={handleChange}
+                value={userName}
+              />
               <label>Correo electrónico</label>
               <input
                 name="email"
@@ -109,14 +132,6 @@ const Login = () => {
                 type="email"
                 onChange={handleChange}
                 value={email}
-              />
-              <label>Contraseña</label>
-              <input
-                name="password"
-                className="input-style"
-                type="password"
-                onChange={handleChange}
-                value={password}
               />
 
               <FormControlLabel
@@ -137,7 +152,7 @@ const Login = () => {
               />
 
               <div className="container-button">
-                <CustomButton label="Crear cuenta" disabled={isFieldsEmpty} />
+                <CustomButton label="Iniciar sesión" disabled={isFieldsEmpty} />
               </div>
               <CustomAlert
                 message={alert.message}
